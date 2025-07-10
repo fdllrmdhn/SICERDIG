@@ -116,7 +116,7 @@
 
         // Cek apakah user sudah login
         if (localStorage.getItem("isLoggedIn") === "true") {
-        window.location.href = "LINGKASAEDU.html"; // arahkan ke halaman dashboard
+        window.location.href = "index.html"; // arahkan ke halaman dashboard
         }
 
         // Proses login
@@ -131,7 +131,7 @@
             inputPassword === allowedUser.password
         ) {
             localStorage.setItem("isLoggedIn", "true");
-            window.location.href = "LINGKASAEDU. html"; // arahkan ke halaman dashboard
+            window.location.href = "index.html"; // arahkan ke halaman dashboard
         } else {
             document.getElementById("message").innerText = "Username atau password salah.";
         }
