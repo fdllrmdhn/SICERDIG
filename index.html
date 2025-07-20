@@ -525,7 +525,7 @@
                                 </div>
                                 <span class="text-sm font-bold">Kamu</span>
                             </div>
-                            <span class="text-sm font-bold">1,250 XP</span>
+                            <span id="total-xp" class="text-sm font-bold">0 XP</span>
                         </div>
                     </div>
                     <a class="text-xs underline opacity-80 hover:opacity-100" href="#">Lihat peringkat lengkap →</a>
@@ -1500,6 +1500,18 @@
                 icon.classList.add('fa-play');
             }
         }
+
+        // Score XP Total
+        document.addEventListener('DOMContentLoaded', () => {
+            // Ambil nilai XP dari localStorage
+            const xp = localStorage.getItem('xp') || 0;
+
+            // Format angka dengan koma (contoh: 1,250)
+            const formattedXP = parseInt(xp).toLocaleString();
+
+            // Tampilkan ke elemen dengan id total-xp
+            document.getElementById('total-xp').textContent = `${formattedXP} XP`;
+        });
     </script>
 </body>
 

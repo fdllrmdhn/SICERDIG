@@ -135,11 +135,11 @@
                         <div>
                             <span id="char-count" class="text-sm text-gray-500">0/300</span>
                         </div>
-                        <div class="text-sm text-gray-500">
-                            <span id="xp-badge" class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full hidden">
-                                <i class="fas fa-medal mr-1"></i> +10 XP (skor sempurna)
+                        <!-- <div class="text-sm text-gray-500">
+                            <span id="xp-badge" class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full">
+                                <i class="fas fa-medal mr-1"></i> +50 XP (skor sempurna)
                             </span>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4 justify-center">
                         <button id="next-btn" class="btn-accent text-white font-medium py-3 px-6 rounded-lg flex items-center justify-center">
@@ -167,7 +167,12 @@
             </div>
             
             <!-- XP Badge -->
-            <div id="xp-reward" class="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full py-2 px-4 text-white font-bold inline-flex items-center mb-6 hidden">
+             <div class="text-sm text-gray-500">
+                            <span id="xp-badge" class="bg-blue-100 text-blue-800 px-2 py-1 rounded-full hidden">
+                                <!-- <i></i> +50 XP (skor sempurna) -->
+                            </span>
+                        </div>
+            <div id="xp-reward" class="bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-3 py-2 px-4 text-white font-bold inline-flex items-center mb-6 hidden">
                 <i class="fas fa-star mr-2"></i> +10 XP
             </div>
             
@@ -388,6 +393,22 @@
             reflectionTextarea.focus();
         }
 
+        function tambahXP(xp) {
+            // Ambil XP lama dari localStorage
+            let currentXP = localStorage.getItem('xp');
+            currentXP = currentXP ? parseInt(currentXP) : 0;
+
+            // Tambahkan XP baru
+            const newXP = currentXP + xp;
+
+            // Simpan kembali ke localStorage
+            localStorage.setItem('xp', newXP);
+
+            // Menampilkan ke HTML
+            xpReward.classList.remove('hidden');
+            xpReward.innerHTML = `<i class="fas fa-medal mr-1"></i> ${newXP} XP`;
+        }
+
         // Show results after reflection
         function showResults() {
             reflectionContainer.classList.add('hidden');
@@ -401,15 +422,24 @@
                 feedbackText.classList.add('text-green-600');
                 xpReward.classList.remove('hidden');
                 xpBadge.classList.remove('hidden');
+                tambahXP(score*10);
+                xpBadge.innerHTML = `<i></i> tambah +${score*10} XP`;
             } else if (score >= Math.floor(quizData.length * 0.6)) {
                 feedbackText.textContent = "Pemahamanmu sudah bagus. Terus eksplorasi modul lainnya.";
                 feedbackText.classList.add('text-blue-600');
+                xpBadge.classList.remove('hidden');
+                tambahXP(score*10);
+                xpBadge.innerHTML = `<i></i> tambah +${score*10} XP`;
+
             } else {
                 feedbackText.textContent = "Tetap semangat belajar literasi digital! Yuk coba ulang quiz!";
                 feedbackText.classList.add('text-primary');
                 retryBadge.classList.remove('hidden');
             }
         }
+
+        
+
 
         // Reset quiz
         function resetQuiz() {
@@ -449,16 +479,6 @@
         homeBtn.addEventListener('click', () => {
             window.location.href = "index.html";
         });
-        
-        // reflectionTextarea.addEventListener('input', (e) => {
-        //     reflectionText = e.target.value;
-        //     charCount.textContent = `${reflectionText.length}/300`;
-        //     charCount.classList.toggle('text-red-500', reflectionText.length >= 290);
-            
-        //     if (reflectionText.length > 0) {
-        //         showResults();
-        //     }
-        // });
 
         reflectionTextarea.addEventListener('input', (e) => {
             reflectionText = e.target.value;
@@ -474,6 +494,8 @@
             }
         });
         document.getElementById('next-btn').addEventListener('click', showResults);
+
+
 
 
         // Initialize

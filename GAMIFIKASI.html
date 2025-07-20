@@ -202,7 +202,7 @@
                         <div class="mb-6">
                             <div class="flex justify-between items-center mb-2">
                                 <span class="font-medium">XP Progress</span>
-                                <span class="text-sm text-gray-600">1,250/2,000 XP</span>
+                                <span id="total-xp" class="text-sm text-gray-600">1,250/2,000 XP</span>
                             </div>
                             <div class="xp-bar rounded-full">
                                 <div class="h-full rounded-full" style="width: 62.5%"></div>
@@ -243,7 +243,7 @@
                                 </div>
                                 <div>
                                     <p class="text-sm text-gray-500">XP Today</p>
-                                    <p class="font-bold">85</p>
+                                    <p id="today-xp" class="font-bold">85</p>
                                 </div>
                             </div>
                         </div>
@@ -625,6 +625,20 @@
             allowtransparency="true"
             >
         </iframe>
-                               
+                      
+        <script>
+            // Score XP Total
+            document.addEventListener('DOMContentLoaded', () => {
+                // Ambil nilai XP dari localStorage
+                const xp = localStorage.getItem('xp') || 0;
+
+                // Format angka dengan koma (contoh: 1,250)
+                const formattedXP = parseInt(xp).toLocaleString();
+
+                // Tampilkan ke elemen dengan id total-xp
+                document.getElementById('total-xp').textContent = `${formattedXP} XP / 2,000 XP`;
+                document.getElementById('today-xp').textContent = `${formattedXP}`;
+            });
+        </script>
 </body>
 </html>

@@ -144,6 +144,9 @@
                             </p>
                         </div>
                     </div>
+                    <div id="xp-reward" class="hidden bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full mt-3 py-2 px-4 text-white font-bold inline-flex items-center mb-6">
+                        <!-- <i class="fas fa-star mr-2"></i> +10 XP -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -189,10 +192,27 @@
             showFeedback(true);
         });
 
+        const xpReward = document.getElementById('xp-reward');
+        function tambahXP(xp) {
+            // Ambil XP lama dari localStorage
+            let currentXP = localStorage.getItem('xp');
+            currentXP = currentXP ? parseInt(currentXP) : 0;
+
+            // Tambahkan XP baru
+            const newXP = currentXP + xp;
+
+            // Simpan kembali ke localStorage
+            localStorage.setItem('xp', newXP);
+
+            // xpReward.classList.remove('hidden');
+            // xpReward.innerHTML = `<i class="mr-1"></i> ${newXP} XP`;
+        }
+
         function showFeedback(isCorrect) {
             const feedbackElement = document.getElementById('feedback');
             const resultIcon = document.getElementById('resultIcon');
             const feedbackText = document.getElementById('feedbackText');
+            const score = 0;
             
             if (isCorrect) {
                 resultIcon.innerHTML = `
@@ -204,6 +224,10 @@
                     <strong class="text-green-600">Tepat sekali!</strong><br>
                     Menggunakan satu password untuk semua akun sangat <strong class="text-red-500">berbahaya</strong>. Jika satu akun diretas, semua akunmu bisa terancam. Gunakan password unik yang kuat untuk setiap akun dan pertimbangkan menggunakan password manager.
                 `;
+                tambahXP(score+10);
+                xpReward.classList.remove('hidden');
+                xpReward.innerHTML = `<i class="mr-1"></i> +${score+10} XP`;
+
             } else {
                 resultIcon.innerHTML = `
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -214,6 +238,9 @@
                     <strong class="text-red-600">Kurang tepat</strong><br>
                     Pernyataan tersebut <strong class="text-red-500">salah</strong>. Menggunakan satu password untuk semua akun justru meningkatkan risiko keamanan. Idealnya, gunakan password yang berbeda untuk setiap akun dan kombinasikan dengan autentikasi dua faktor.
                 `;
+                tambahXP(score);
+                xpReward.classList.remove('hidden');
+                xpReward.innerHTML = `<i class="mr-1"></i> +${score} XP`;
             }
             
             feedbackElement.classList.remove('hidden');
