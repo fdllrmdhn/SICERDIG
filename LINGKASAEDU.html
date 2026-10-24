@@ -187,11 +187,6 @@
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <button
-                        class="hidden md:block bg-yellow-400 text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-yellow-300"
-                        onclick="logout()">
-                        Keluar
-                    </button>
                     <button class="md:hidden text-xl" id="mobileMenuButton">
                         <i class="fas fa-bars"></i>
                     </button>
@@ -214,9 +209,6 @@
                             <span class="font-bold">1,250</span>
                         </div>
                     </div>
-                    <button class="bg-yellow-400 text-blue-600 px-6 py-2 rounded-full font-bold hover:bg-yellow-300">
-                        Masuk
-                    </button>
                 </div>
             </div>
         </div>
@@ -1315,16 +1307,6 @@
     </script>
     <script>
         //Chat Bot agar muncul ketika icon chat diklik
-
-        //LOGIN
-        if (localStorage.getItem("isLoggedIn") !== "true") {
-            window.location.href = "Loginpage.html"; // redirect ke login kalau belum login
-        }
-
-        function logout() {
-            localStorage.removeItem("isLoggedIn");
-            window.location.href = "Loginpage.html";
-        }
 
         //TOMBOL LIHAT LEBIH
         function toggleCards() {
